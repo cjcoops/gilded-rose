@@ -51,11 +51,27 @@ describe GildedRose do
         GildedRose.new(items).update_quality()
         expect(items[0].sell_in).to eq 9
       end
-      
+
       it "quality can not go above 50" do
         items = [Item.new("Aged Brie", 10, 50)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 50
+      end
+
+    end
+
+    describe "sulfuras" do
+
+      it "quality does not change" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 80)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].quality).to eq 80
+      end
+
+      it "sellin does not change" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 80)]
+        GildedRose.new(items).update_quality()
+        expect(items[0].sell_in).to eq 10
       end
 
     end
