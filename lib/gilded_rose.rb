@@ -15,6 +15,8 @@ class GildedRose
 
       return aged_brie_update_quality(item) if item.name == "Aged Brie"
 
+    #  return backstage_passes_update_quality(item) if item.name == "Backstage passes to a TAFKAL80ETC concert"
+
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
           if item.name != "Sulfuras, Hand of Ragnaros"
@@ -76,6 +78,10 @@ class GildedRose
     if item.quality < 50
       item.quality = item.quality + 1
     end
+    reduce_sell_in(item, 1)
+  end
+
+  def backstage_passes_update_quality(item)
     reduce_sell_in(item, 1)
   end
 
