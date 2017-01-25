@@ -1,6 +1,6 @@
 class GildedRose
 
-  SPECIAL_ITEMS = ["Aged Brie",
+  SPECIAL_ITEMS = ["Aged Brie", "Conjured Aged Brie",
                     "Sulfuras, Hand of Ragnaros",
                       "Backstage passes to a TAFKAL80ETC concert"]
 
@@ -11,7 +11,7 @@ class GildedRose
   def update_quality
     @items.each do |item|
       return normal_update_quality(item) unless SPECIAL_ITEMS.include?(item.name)
-      return aged_brie_update_quality(item) if item.name == "Aged Brie"
+      return aged_brie_update_quality(item) if item.name.include?("Aged Brie")
       return backstage_passes_update_quality(item) if item.name == "Backstage passes to a TAFKAL80ETC concert"
     end
   end
@@ -28,7 +28,8 @@ class GildedRose
   end
 
   def aged_brie_update_quality(item)
-    increase_quality_or_max(item, 1, 50)
+    quality_multiplier = is_conjured?(item) ? 2 : 1
+    increase_quality_or_max(item, 1 * quality_multiplier, 50)
     reduce_sell_in(item)
   end
 

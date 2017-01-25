@@ -174,6 +174,28 @@ describe GildedRose do
           expect(items[0].quality).to eq 0
         end
       end
+
+      describe "aged brie" do
+
+        it "increases quality by 2" do
+          items = [Item.new("Conjured Aged Brie", 10, 10)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 12
+        end
+
+        it "reduces sellin by 1" do
+          items = [Item.new("Conjured Aged Brie", 10, 10)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].sell_in).to eq 9
+        end
+
+        it "quality can not go above 50" do
+          items = [Item.new("Conjured Aged Brie", 10, 49)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 50
+        end
+
+      end
     end
 
   end
