@@ -15,12 +15,11 @@ class GildedRose
     end
   end
 
+  private
+
   def normal_update_quality(item)
-    if item.sell_in <= 0
-      reduce_quality_or_min(item, 2, 0)
-    else
-      reduce_quality_or_min(item, 1, 0)
-    end
+    quality_multiplier = (item.sell_in <= 0 ? 2 : 1)
+    reduce_quality_or_min(item, 1 * quality_multiplier, 0)
     reduce_sell_in(item)
   end
 
@@ -42,7 +41,6 @@ class GildedRose
     reduce_sell_in(item)
   end
 
-  private
 
   def reduce_sell_in(item)
     item.sell_in = item.sell_in - 1
