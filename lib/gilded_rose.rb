@@ -22,12 +22,12 @@ class GildedRose
     else
       reduce_quality_or_min(item, 1, 0)
     end
-    reduce_sell_in(item, 1)
+    reduce_sell_in(item)
   end
 
   def aged_brie_update_quality(item)
     increase_quality_or_max(item, 1, 50)
-    reduce_sell_in(item, 1)
+    reduce_sell_in(item)
   end
 
   def backstage_passes_update_quality(item)
@@ -40,13 +40,13 @@ class GildedRose
     else
       item.quality = 0
     end
-    reduce_sell_in(item, 1)
+    reduce_sell_in(item)
   end
 
   private
 
-  def reduce_sell_in(item, n)
-    item.sell_in = item.sell_in - n
+  def reduce_sell_in(item)
+    item.sell_in = item.sell_in - 1
   end
 
   def increase_quality_or_max(item, n, max)
