@@ -19,11 +19,15 @@ def reduce_quality_or_min(item, n, min)
   item.quality = [item.quality - n,min].max
 end
 ```
-6. Give methods which increase quality a quality multiplier which equates to 2 if the item is 'conjured' or 1 otherwise
+6. Give methods which change the quality a change variable which is dependent on whether the item is conjured or not.
 
 ```ruby
-def increase_quality_or_max(item, n, max)
-  quality_multiplier = is_conjured?(item) ? 2 : 1
-  item.quality = [item.quality + n * quality_multiplier,max].min
+def reduce_quality_or_min(item, n, min)
+  change = change_in_quality(item, n)
+  item.quality = [item.quality - change,min].max
+end
+
+def change_in_quality(item, n)
+  n * (is_conjured?(item) ? 2 : 1)
 end
 ```

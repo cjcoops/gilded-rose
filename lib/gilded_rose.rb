@@ -49,13 +49,17 @@ class GildedRose
   end
 
   def increase_quality_or_max(item, n, max)
-    quality_multiplier = is_conjured?(item) ? 2 : 1
-    item.quality = [item.quality + n * quality_multiplier,max].min
+    change = change_in_quality(item, n)
+    item.quality = [item.quality + change,max].min
   end
 
   def reduce_quality_or_min(item, n, min)
-    quality_multiplier = is_conjured?(item) ? 2 : 1
-    item.quality = [item.quality - n * quality_multiplier,min].max
+    change = change_in_quality(item, n)
+    item.quality = [item.quality - change,min].max
+  end
+
+  def change_in_quality(item, n)
+    n * (is_conjured?(item) ? 2 : 1)
   end
 
   def is_conjured?(item)
