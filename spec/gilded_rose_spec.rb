@@ -24,7 +24,7 @@ describe GildedRose do
         expect(items[0].sell_in).to eq 9
       end
 
-      it "reduces quality a twice as fast after sellin reaches 0" do
+      it "reduces quality by 2 after sellin reaches 0" do
         items = [Item.new("normal", 0, 10)]
         GildedRose.new(items).update_quality()
         expect(items[0].quality).to eq 8
@@ -156,7 +156,7 @@ describe GildedRose do
           expect(items[0].sell_in).to eq 9
         end
 
-        it "reduces quality a twice as fast after sellin reaches 0" do
+        it "reduces quality by 4 after sellin reaches 0" do
           items = [Item.new("Conjured normal", 0, 10)]
           GildedRose.new(items).update_quality()
           expect(items[0].quality).to eq 6

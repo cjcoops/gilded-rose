@@ -17,11 +17,7 @@ class GildedRose
   end
 
   def normal_update_quality(item)
-    if is_conjured?(item)
-      quality_multiplier = 2
-    else
-      quality_multiplier = 1
-    end
+    quality_multiplier = is_conjured?(item) ? 2 : 1
 
     if item.sell_in <= 0
       reduce_quality_or_min(item, 2 * quality_multiplier, 0)
