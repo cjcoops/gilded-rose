@@ -21,12 +21,10 @@ class GildedRose
   end
 
   def normal_update_quality(item)
-    if item.quality > 0
-      if item.sell_in <= 0
-        item.quality = [item.quality - 2,0].max
-      else
-        item.quality = item.quality - 1
-      end
+    if item.sell_in <= 0
+      reduce_quality_or_min(item, 2, 0)
+    else
+      reduce_quality_or_min(item, 1, 0)
     end
     reduce_sell_in(item, 1)
   end
@@ -57,6 +55,10 @@ class GildedRose
 
   def increase_quality_or_max(item, n, max)
     item.quality = [item.quality + n,max].min
+  end
+
+  def reduce_quality_or_min(item, n, min)
+    item.quality = [item.quality - n,min].max
   end
 
 end
