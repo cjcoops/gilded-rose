@@ -29,18 +29,14 @@ class GildedRose
   end
 
   def backstage_passes_update_quality(item)
-    if item.sell_in > 10
-      increase_quality_or_max(item, 1, 50)
-    elsif item.sell_in > 5
-      increase_quality_or_max(item, 2, 50)
-    elsif item.sell_in > 0
-      increase_quality_or_max(item, 3, 50)
-    else
+    if item.sell_in <= 0
       item.quality = 0
+    else
+      quality_multiplier = (item.sell_in > 10 ? 1 : item.sell_in > 5 ? 2 : 3)
+      increase_quality_or_max(item, 1 * quality_multiplier, 50)
     end
     reduce_sell_in(item)
   end
-
 
   def reduce_sell_in(item)
     item.sell_in = item.sell_in - 1
