@@ -1,8 +1,8 @@
 class GildedRose
 
-  SPECIAL_ITEMS = ["Aged Brie", "Conjured Aged Brie",
-                    "Sulfuras, Hand of Ragnaros",
-                      "Backstage passes to a TAFKAL80ETC concert"]
+  # SPECIAL_ITEMS = ["Aged Brie",
+  #                   "Sulfuras, Hand of Ragnaros",
+  #                     "Backstage passes to a TAFKAL80ETC concert"]
 
   def initialize(items)
     @items = items
