@@ -1,3 +1,7 @@
+# Gilded Rose Kata
+
+My solution to the [Gilded Rose Kata](https://github.com/emilybache/GildedRose-Refactoring-Kata) in Ruby.
+
 Strategy
 ------------
 * Write tests for "normal" items and all of the special items (minus the "Conjured" items) considering edge cases e.g. quality reducing by 2 while quality is 1 where quality can not be below 0.
@@ -29,5 +33,14 @@ end
 
 def change_in_quality(item, n)
   n * (is_conjured?(item) ? 2 : 1)
+end
+```
+* Use a quality multiplier to determine how much the change the quality by when it is based on the sell in value
+
+```ruby
+def normal_update_quality(item)
+  quality_multiplier = (item.sell_in <= 0 ? 2 : 1)
+  reduce_quality_or_min(item, 1 * quality_multiplier, 0)
+  reduce_sell_in(item)
 end
 ```
