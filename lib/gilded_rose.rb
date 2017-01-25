@@ -10,9 +10,10 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
-      return normal_update_quality(item) unless SPECIAL_ITEMS.include?(item.name)
+      return if item.name.include?("Sulfuras, Hand of Ragnaros")
       return aged_brie_update_quality(item) if item.name.include?("Aged Brie")
       return backstage_passes_update_quality(item) if item.name == "Backstage passes to a TAFKAL80ETC concert"
+      normal_update_quality(item)
     end
   end
 
