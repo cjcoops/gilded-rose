@@ -254,6 +254,22 @@ describe GildedRose do
         end
 
       end
+
+      describe "sulfuras" do
+
+        it "quality does not change" do
+          items = [Item.new("Conjured Sulfuras, Hand of Ragnaros", 10, 80)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 80
+        end
+
+        it "sellin does not change" do
+          items = [Item.new("Conjured Sulfuras, Hand of Ragnaros", 10, 80)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].sell_in).to eq 10
+        end
+
+      end
     end
 
   end
