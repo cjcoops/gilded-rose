@@ -11,7 +11,6 @@ class GildedRose
   def update_quality
     @items.each do |item|
 
-
       return normal_update_quality(item) unless SPECIAL_ITEMS.include?(item.name)
 
       return aged_brie_update_quality(item) if item.name == "Aged Brie"
@@ -74,7 +73,10 @@ class GildedRose
   end
 
   def aged_brie_update_quality(item)
-
+    if item.quality < 50
+      item.quality = item.quality + 1
+    end
+    item.sell_in = item.sell_in - 1
   end
 
 end
