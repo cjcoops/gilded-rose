@@ -1,11 +1,20 @@
 class GildedRose
 
+  SPECIAL_ITEMS = ["Aged Brie",
+                    "Sulfuras, Hand of Ragnaros",
+                      "Backstage passes to a TAFKAL80ETC concert"]
+
   def initialize(items)
     @items = items
   end
 
-  def update_quality()
+  def update_quality
     @items.each do |item|
+
+      unless SPECIAL_ITEMS.include?(item.name)
+        return normal_update_quality(item)
+      end
+
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
           if item.name != "Sulfuras, Hand of Ragnaros"
@@ -51,6 +60,12 @@ class GildedRose
       end
     end
   end
+
+  def normal_update_quality(item)
+    item.quality = item.quality - 1
+    item.sell_in = item.sell_in - 1
+  end
+
 end
 
 class Item
