@@ -196,6 +196,64 @@ describe GildedRose do
         end
 
       end
+
+      describe "backstage passes" do
+
+        it "reduces sellin by 1" do
+          items = [Item.new("Conjured Backstage passes to a TAFKAL80ETC concert", 10, 10)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].sell_in).to eq 9
+        end
+
+        it "quality drops to 0 after the concert" do
+          items = [Item.new("Conjured Backstage passes to a TAFKAL80ETC concert", 0, 10)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 0
+        end
+
+        context "sellin is over 10" do
+          it "quality increases by 2" do
+            items = [Item.new("Conjured Backstage passes to a TAFKAL80ETC concert", 11, 10)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 12
+          end
+
+          it "quality can not go above 50" do
+            items = [Item.new("Conjured Backstage passes to a TAFKAL80ETC concert", 11, 49)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 50
+          end
+        end
+
+        context "sellin is 10 or less and greater than 5" do
+          it "quality increases by 4 once sellin reaches 10" do
+            items = [Item.new("Conjured Backstage passes to a TAFKAL80ETC concert", 10, 10)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 14
+          end
+
+          it "quality can not go above 50" do
+            items = [Item.new("Conjured Backstage passes to a TAFKAL80ETC concert", 10, 47)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 50
+          end
+        end
+
+        context "sellin is 5 or less and greater than 0" do
+          it "quality increases by 6 once sellin reaches 5" do
+            items = [Item.new("Conjured Backstage passes to a TAFKAL80ETC concert", 5, 10)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 16
+          end
+
+          it "quality can not go above 50" do
+            items = [Item.new("Conjured Backstage passes to a TAFKAL80ETC concert", 5, 45)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 50
+          end
+        end
+
+      end
     end
 
   end

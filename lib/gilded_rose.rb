@@ -1,9 +1,5 @@
 class GildedRose
 
-  # SPECIAL_ITEMS = ["Aged Brie",
-  #                   "Sulfuras, Hand of Ragnaros",
-  #                     "Backstage passes to a TAFKAL80ETC concert"]
-
   def initialize(items)
     @items = items
   end
@@ -12,25 +8,22 @@ class GildedRose
     @items.each do |item|
       return if item.name.include?("Sulfuras, Hand of Ragnaros")
       return aged_brie_update_quality(item) if item.name.include?("Aged Brie")
-      return backstage_passes_update_quality(item) if item.name == "Backstage passes to a TAFKAL80ETC concert"
+      return backstage_passes_update_quality(item) if item.name.include?("Backstage passes to a TAFKAL80ETC concert")
       normal_update_quality(item)
     end
   end
 
   def normal_update_quality(item)
-    quality_multiplier = is_conjured?(item) ? 2 : 1
-
     if item.sell_in <= 0
-      reduce_quality_or_min(item, 2 * quality_multiplier, 0)
+      reduce_quality_or_min(item, 2, 0)
     else
-      reduce_quality_or_min(item, 1 * quality_multiplier, 0)
+      reduce_quality_or_min(item, 1, 0)
     end
     reduce_sell_in(item)
   end
 
   def aged_brie_update_quality(item)
-    quality_multiplier = is_conjured?(item) ? 2 : 1
-    increase_quality_or_max(item, 1 * quality_multiplier, 50)
+    increase_quality_or_max(item, 1, 50)
     reduce_sell_in(item)
   end
 
@@ -54,11 +47,13 @@ class GildedRose
   end
 
   def increase_quality_or_max(item, n, max)
-    item.quality = [item.quality + n,max].min
+    quality_multiplier = is_conjured?(item) ? 2 : 1
+    item.quality = [item.quality + n * quality_multiplier,max].min
   end
 
   def reduce_quality_or_min(item, n, min)
-    item.quality = [item.quality - n,min].max
+    quality_multiplier = is_conjured?(item) ? 2 : 1
+    item.quality = [item.quality - n * quality_multiplier,min].max
   end
 
   def is_conjured?(item)
