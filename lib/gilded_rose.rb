@@ -32,9 +32,7 @@ class GildedRose
   end
 
   def aged_brie_update_quality(item)
-    if item.quality < 50
-      item.quality = item.quality + 1
-    end
+    increase_quality_or_max(item, 1, 50)
     reduce_sell_in(item, 1)
   end
 
