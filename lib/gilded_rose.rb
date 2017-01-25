@@ -40,11 +40,11 @@ class GildedRose
 
   def backstage_passes_update_quality(item)
     if item.sell_in > 10
-      item.quality = [item.quality + 1,50].min
+      increase_quality_or_max(item, 1, 50)
     elsif item.sell_in > 5
-      item.quality = [item.quality + 2,50].min
+      increase_quality_or_max(item, 2, 50)
     elsif item.sell_in > 0
-      item.quality = [item.quality + 3,50].min
+      increase_quality_or_max(item, 3, 50)
     else
       item.quality = 0
     end
@@ -55,6 +55,10 @@ class GildedRose
 
   def reduce_sell_in(item, n)
     item.sell_in = item.sell_in - n
+  end
+
+  def increase_quality_or_max(item, n, max)
+    item.quality = [item.quality + n,max].min
   end
 
 end
